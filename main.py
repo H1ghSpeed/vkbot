@@ -1,10 +1,10 @@
-from src.client import Client
+from src.parser import Parser
 import asyncio
 import os
 
 
 async def main():
-    client = Client(domain="sekrety_zdorovya")
+    client = Parser(domain="sekrety_zdorovya", offset=0)
     await client.get_one_hungred_posts()
 
 if __name__ == "__main__":

@@ -1,5 +1,7 @@
 .vscode/
 __pycache__
+data/
 
 
 configs/zdorovya.yaml
+main.py
