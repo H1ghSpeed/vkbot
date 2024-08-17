@@ -1,5 +1,7 @@
 
 
-class NotFoundToken(BaseException):
+class NotFoundToken(Exception):
     """pass."""
-    pass
+
+class ExcessQuantityPosts(Exception):
+    """pass."""
