@@ -8,7 +8,7 @@ class FileManager:
 
     def __init__(self, domain) -> None:
         self.parent_path = Path("data")
-        self.domain_path = self.parent_path / domain
+        self.domain_path = self.parent_path / "sekrety_zdorovya"
 
     @property
     def post_id(self):
@@ -17,31 +17,29 @@ class FileManager:
     @post_id.setter
     def post_id(self, post_id):
         post_id = str(post_id)
-        if not (self.domain_path / post_id).exists():
+        if not (self.image_path / post_id).exists() and (self.text_path / post_id).exists():
             os.makedirs(self.domain_path / "images" / post_id, exist_ok=True)
             os.makedirs(self.domain_path / "text" / post_id, exist_ok=True)
         self._post_id = post_id
-        self.image_path = "images"
-        self.text_path = "text"
 
     @property
     def image_path(self):
-        return self._image_path
+        return self.domain_path / "images"
 
-    @image_path.setter
-    def image_path(self, img_path):
-        self._image_path = self.domain_path/ img_path
+    @property
+    def images_post_path(self):
+        return (self.image_path / self.post_id).glob("*")
 
     @property
     def text_path(self):
-        return self._text_path
+        return self.domain_path / "text"
 
-    @text_path.setter
-    def text_path(self, text_path):
-        self._text_path = self.domain_path/ text_path
+    @property
+    def text_post_path(self):
+        return self.text_path / self.post_id
 
 
 def shuffle_posts(file_manager: FileManager) -> list:
-    posts = os.listdir(file_manager.image_path)
-    random.shuffle(posts)
-    return (Path(file_manager.image_path / post) for post in posts)
+    posts_id = os.listdir(file_manager.image_path)
+    random.shuffle(posts_id)
+    return posts_id
